@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ButtonContainer = styled.button`
-    background-color: ${props => props.theme["green-500"]};
+  background-color: ${(props) => props.theme['green-500']};
 
-    padding: .8rem 2rem;
+  padding: 0.8rem 2rem;
 
-    margin: .5rem;
+  margin: 0.5rem;
 
-    border-radius: 4px;
+  border-radius: 4px;
 `;

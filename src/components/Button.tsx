@@ -1,7 +1,11 @@
-import { ButtonContainer } from "./Button.styles";
+import { Fragment } from 'react';
+
+import { ButtonContainer } from './Button.styles';
 
 export function Button() {
-	return (
-		<ButtonContainer>Enviar</ButtonContainer>
-	);
+  return (
+    <Fragment>
+      <ButtonContainer>Enviar</ButtonContainer>
+    </Fragment>
+  );
 }
