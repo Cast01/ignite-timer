@@ -1,11 +1,7 @@
-import { ButtonContainer, ColorsType } from "./Button.styles";
+import { ButtonContainer } from "./Button.styles";
 
-type ButtonPropsType = {
-    variantprop?: ColorsType;
-}
-
-export function Button({ variantprop }: ButtonPropsType) {
+export function Button() {
 	return (
-		<ButtonContainer variant={variantprop}>TESTE</ButtonContainer>
+		<ButtonContainer>Enviar</ButtonContainer>
 	);
 }

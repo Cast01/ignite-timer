@@ -1,17 +1,15 @@
-import { ThemeProvider } from "styled-components"; 
-
 import { Button } from "./components/Button";
-import { defaultThemes } from "./styles/themes/default";
+import { Fragment } from "react";
 
 function App() {
 	return (
-		<ThemeProvider theme={defaultThemes}>
-			<Button variantprop="a" />
-			<Button variantprop="s" />
-			<Button variantprop="d" />
-			<Button variantprop="f" />
+		<Fragment>
 			<Button />
-		</ThemeProvider>
+			<Button />
+			<Button />
+			<Button />
+			<Button />
+		</Fragment>
 	);
 }
 
