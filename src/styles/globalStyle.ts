@@ -15,6 +15,8 @@ export const GlobalStyle = createGlobalStyle`
 
     #root {
         min-height: 100vh;
+
+        padding: 8rem 0;
     }
 
     body, input, textarea, button {
