@@ -1,15 +1,10 @@
 import { Fragment } from 'react';
-
-import { Button } from './components/Button';
+import { Router } from './Router';
 
 function App() {
   return (
     <Fragment>
-      <Button />
-      <Button />
-      <Button />
-      <Button />
-      <Button />
+      <Router />
     </Fragment>
   );
 }
