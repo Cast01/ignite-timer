@@ -13,141 +13,172 @@ export const HomeContainer = styled.main`
 
     display: flex;
     flex-direction: column;
+  }
+`;
 
-    header {
-      height: 4.4rem;
+export const FormHeader = styled.header`
+  height: 4.4rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  input[type='number'] {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    -moz-appearance: textfield;
+
+    width: 7.2rem;
+    height: 100%;
+  }
+`;
+
+export const BaseInput = styled.input`
+  background-color: transparent;
+
+  padding-top: 0.5rem;
+
+  font-weight: bold;
+
+  text-align: center;
+
+  border-bottom: 3px solid ${(props) => props.theme['gray-500']};
+
+  &:focus {
+    box-shadow: none;
+    border-bottom: 3px solid ${(props) => props.theme['green-500']};
+  }
+
+  &:hover {
+    border-bottom: 3px solid ${(props) => props.theme['green-500']};
+  }
+`;
+
+export const TaskInput = styled(BaseInput)`
+  height: 100%;
+
+  flex: 1;
+`;
+
+export const MinutesAmmountInput = styled(BaseInput)`
+  -moz-appearance: textfield;
+
+  width: 7.2rem;
+  height: 100%;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+`;
+
+export const CountDownContainer = styled.div`
+  height: 4.4rem;
+
+  flex: 1;
+
+  padding: 6rem 0 5.6rem;
+
+  .countDown {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    gap: 1.6rem;
+
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 16rem;
+
+    position: relative;
+
+    .units {
+      width: 12.8rem;
+      height: 100%;
+
+      background-color: ${(props) => props.theme['gray-700']};
+
+      border-radius: 8px;
 
       display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
-      gap: 0.8rem;
-
-      font-size: 1.8rem;
-      font-weight: bold;
-
-      input {
-        background-color: transparent;
-
-        padding-top: 0.5rem;
-
-        font-weight: bold;
-
-        border-bottom: 3px solid ${(props) => props.theme['gray-500']};
-      }
-
-      input[type='text'] {
-        height: 100%;
-
-        flex: 1;
-
-        text-align: center;
-      }
-
-      input[type='number'] {
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-
-        -moz-appearance: textfield;
-
-        width: 7.2rem;
-        height: 100%;
-      }
     }
 
-    section {
-      height: 4.4rem;
-
+    .countDownSeparator {
       flex: 1;
 
-      padding: 6rem 0 5.6rem;
+      display: flex;
 
-      .countDown {
-        width: 100%;
-        height: 100%;
+      &::before {
+        content: '';
 
-        display: flex;
-        gap: 1.6rem;
+        position: absolute;
+        top: calc(50% + 15px);
+        left: 50%;
+        transform: translateX(-50%);
 
-        font-family: 'Roboto Mono', sans-serif;
-        font-size: 16rem;
+        width: 3rem;
+        height: 3rem;
 
-        position: relative;
-
-        .units {
-          width: 12.8rem;
-          height: 100%;
-
-          background-color: ${(props) => props.theme['gray-700']};
-
-          border-radius: 8px;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .stopwatch {
-          flex: 1;
-
-          display: flex;
-
-          &::before {
-            content: '';
-
-            position: absolute;
-            top: calc(50% + 15px);
-            left: 50%;
-            transform: translateX(-50%);
-
-            width: 3rem;
-            height: 3rem;
-
-            border-radius: 50%;
-
-            background-color: ${(props) => props.theme['green-500']};
-          }
-
-          &::after {
-            content: '';
-
-            position: absolute;
-            bottom: calc(50% + 15px);
-            left: 50%;
-            transform: translateX(-50%);
-
-            border-radius: 50%;
-
-            width: 3rem;
-            height: 3rem;
-
-            background-color: ${(props) => props.theme['green-500']};
-          }
-        }
-      }
-    }
-
-    footer {
-      height: 6.4rem;
-
-      button {
-        width: 100%;
-        height: 100%;
-
-        border-radius: 8px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.8rem;
-
-        font-size: 1.6rem;
-        font-weight: bold;
+        border-radius: 50%;
 
         background-color: ${(props) => props.theme['green-500']};
       }
+
+      &::after {
+        content: '';
+
+        position: absolute;
+        bottom: calc(50% + 15px);
+        left: 50%;
+        transform: translateX(-50%);
+
+        border-radius: 50%;
+
+        width: 3rem;
+        height: 3rem;
+
+        background-color: ${(props) => props.theme['green-500']};
+      }
+    }
+  }
+`;
+
+export const FormFooter = styled.footer`
+  height: 6.4rem;
+
+  button {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    background-color: ${(props) => props.theme['green-500']};
+
+    &:not(:disabled):hover {
+      background-color: ${(props) => props.theme['green-700']};
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
     }
   }
 `;
