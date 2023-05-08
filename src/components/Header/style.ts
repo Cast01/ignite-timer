@@ -4,6 +4,11 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
 
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
+
   nav {
     display: flex;
     align-items: center;
@@ -22,16 +27,14 @@ export const HeaderContainer = styled.header`
       border-top: 3px solid transparent;
       border-bottom: 3px solid transparent;
 
+      color: ${(props) => props.theme['gray-100']};
+
       &:hover {
         border-bottom: 3px solid ${(props) => props.theme['green-500']};
       }
 
       &.active {
         color: ${(props) => props.theme['green-500']};
-      }
-
-      svg {
-        color: ${(props) => props.theme['gray-100']};
       }
     }
   }

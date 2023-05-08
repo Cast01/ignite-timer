@@ -9,10 +9,10 @@ export function Header() {
     <HeaderContainer>
       <img src={logo} alt="" />
       <nav>
-        <NavLink to="/" end title="Cronômetro">
+        <NavLink to="/" title="Cronômetro">
           <Timer size={'2.4rem'} />
         </NavLink>
-        <NavLink to="/history" end title="Histórico">
+        <NavLink to="/history" title="Histórico">
           <Scroll size={'2.4rem'} />
         </NavLink>
       </nav>

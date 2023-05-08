@@ -32,7 +32,21 @@ export const GlobalStyle = createGlobalStyle`
         color: ${(props) => props.theme.white};
     }
 
+    button, a {
+        cursor: pointer;    
+    }
+
     :focus {
         box-shadow: 0 0 0 2px ${(props) => props.theme['green-500']};
+    }
+
+    @media (max-width: 710px) {
+        html {
+            font-size: 42.5%;
+        }
+    }
+
+    @media (max-width: 530px) {
+        // Mudar o layout para celulares
     }
 `;
