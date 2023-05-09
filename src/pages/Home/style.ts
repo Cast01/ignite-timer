@@ -27,17 +27,20 @@ export const FormHeader = styled.header`
   font-size: 1.8rem;
   font-weight: bold;
 
-  input[type='number'] {
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    -moz-appearance: textfield;
-
-    width: 7.2rem;
+  #task {
     height: 100%;
+
+    flex: 1;
+
+    position: relative;
+
+    datalist option {
+      background: red !important;
+
+      &:hover {
+        background: red;
+      }
+    }
   }
 `;
 
@@ -63,22 +66,16 @@ export const BaseInput = styled.input`
 `;
 
 export const TaskInput = styled(BaseInput)`
-  height: 100%;
+  width: 100%;
 
-  flex: 1;
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
 `;
 
 export const MinutesAmmountInput = styled(BaseInput)`
-  -moz-appearance: textfield;
-
   width: 7.2rem;
   height: 100%;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
 `;
 
 export const CountDownContainer = styled.div`
