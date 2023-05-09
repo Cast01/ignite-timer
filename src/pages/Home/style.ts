@@ -33,14 +33,6 @@ export const FormHeader = styled.header`
     flex: 1;
 
     position: relative;
-
-    datalist option {
-      background: red !important;
-
-      &:hover {
-        background: red;
-      }
-    }
   }
 `;
 
