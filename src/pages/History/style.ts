@@ -26,6 +26,34 @@ export const TableContainer = styled.div`
 
   margin-top: 3.2rem;
 
+  &::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+    height: 5px;
+
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: 0;
+
+      /* background-color: ${(props) => props.theme['gray-800']}; */
+      background-color: blue;
+
+      width: 16rem;
+      height: 16rem;
+
+      z-index: 99;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) =>
+      props.theme['gray-500']}; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+
   table {
     width: 100%;
     /* min-width: 600px; */
@@ -77,20 +105,38 @@ export const TableContainer = styled.div`
           line-height: 1.6;
 
           &:first-child {
-            width: 50%;
+            /* width: 50%; */
           }
         }
       }
     }
   }
+`;
 
-  &::-webkit-scrollbar {
-    width: 5px; /* width of the entire scrollbar */
-  }
+const STATUS_COLOR = {
+  green: 'green-500',
+  red: 'red-500',
+  yellow: 'yellow-500',
+} as const;
 
-  &::-webkit-scrollbar-thumb {
+type StatusProps = {
+  statusColor: keyof typeof STATUS_COLOR;
+};
+
+export const Status = styled.span<StatusProps>`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  &::before {
+    content: '';
+
+    width: 0.8rem;
+    height: 0.8rem;
+
+    border-radius: 50%;
+
     background-color: ${(props) =>
-      props.theme['gray-500']}; /* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
+      props.theme[STATUS_COLOR[props.statusColor]]};
   }
 `;

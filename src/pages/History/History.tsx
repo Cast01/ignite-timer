@@ -1,4 +1,4 @@
-import { HistoryContainer, TableContainer } from './style';
+import { HistoryContainer, Status, TableContainer } from './style';
 
 export function History() {
   return (
@@ -20,61 +20,17 @@ export function History() {
               <td>Concerto de sapato</td>
               <td>25 minutos</td>
               <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
+              <td>
+                <Status statusColor="green">Concluído</Status>
+              </td>
             </tr>
             <tr>
               <td>Concerto de sapato</td>
               <td>25 minutos</td>
               <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
-            </tr>
-            <tr>
-              <td>Concerto de sapato</td>
-              <td>25 minutos</td>
-              <td>Há cerca de 2 meses</td>
-              <td>Concluído</td>
+              <td>
+                <Status statusColor="yellow">Concluído</Status>
+              </td>
             </tr>
           </tbody>
         </table>
