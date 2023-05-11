@@ -13,10 +13,18 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 62.5%;
     }
 
+    /* body {
+        min-width: 300px;
+    } */
+
     #root {
         min-height: 100vh;
 
         padding: 8rem 0;
+
+        @media (max-width: 1024px) {
+            padding: 0;
+        }
     }
 
     body, input, textarea, button {
@@ -47,6 +55,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     @media (max-width: 530px) {
-        // Mudar o layout para celulares
+        html {
+            font-size: 38.5%;
+        }
     }
 `;

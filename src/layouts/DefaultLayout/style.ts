@@ -14,4 +14,14 @@ export const LayoutContainer = styled.div`
   flex-direction: column;
 
   background-color: ${(props) => props.theme['gray-800']};
+
+  @media (max-width: 1024px) {
+    min-height: 100vh;
+
+    border-radius: 0;
+  }
+
+  @media (max-width: 530px) {
+    padding: 1.5rem;
+  }
 `;

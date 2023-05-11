@@ -28,25 +28,31 @@ export function Home() {
               <option value="Banana" />
             </datalist>
           </div>
-          <label htmlFor="minutesAmmount">durante</label>
-          <MinutesAmmountInput
-            id="minutesAmmount"
-            type="number"
-            placeholder="00"
-            step={5}
-            min={5}
-            max={60}
-            maxLength={2}
-          />
-          <span>minutos.</span>
+          <div className="minutesAmmountWrapper">
+            <label htmlFor="minutesAmmount">durante</label>
+            <MinutesAmmountInput
+              id="minutesAmmount"
+              type="number"
+              placeholder="00"
+              step={5}
+              min={5}
+              max={60}
+              maxLength={2}
+            />
+            <span>minutos.</span>
+          </div>
         </FormHeader>
         <CountDownContainer>
           <div className="countDown">
-            <div className="units tensOfMinutes">0</div>
-            <div className="units minutes">0</div>
+            <div className="minutes">
+              <div className="units">1</div>
+              <div className="units">5</div>
+            </div>
             <div className="countDownSeparator" />
-            <div className="units tensOfSeconds">0</div>
-            <div className="units seconds">0</div>
+            <div className="seconds">
+              <div className="units">5</div>
+              <div className="units">9</div>
+            </div>
           </div>
         </CountDownContainer>
         <FormFooter>

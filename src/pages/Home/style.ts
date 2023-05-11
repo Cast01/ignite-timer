@@ -2,23 +2,34 @@ import styled from 'styled-components';
 
 export const HomeContainer = styled.main`
   max-width: 65.6rem;
-  width: 100%;
-  height: 42.2rem;
 
-  margin: 7.2rem auto 16rem;
+  margin: 0 auto 0;
+
+  padding-top: 7.2rem;
+
+  display: flex;
 
   form {
-    width: 100%;
-    height: 100%;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
   }
+
+  @media (max-width: 710px) {
+    flex: 1;
+
+    align-items: center;
+
+    padding-top: 4.5rem;
+  }
+
+  @media (max-width: 530px) {
+    padding-top: 4.5rem;
+  }
 `;
 
 export const FormHeader = styled.header`
-  height: 4.4rem;
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -33,6 +44,12 @@ export const FormHeader = styled.header`
     flex: 1;
 
     position: relative;
+  }
+
+  .minutesAmmountWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
   }
 `;
 
@@ -59,6 +76,7 @@ export const BaseInput = styled.input`
 
 export const TaskInput = styled(BaseInput)`
   width: 100%;
+  min-width: 150px;
 
   &::-webkit-calendar-picker-indicator {
     display: none !important;
@@ -75,7 +93,7 @@ export const CountDownContainer = styled.div`
 
   flex: 1;
 
-  padding: 6rem 0 5.6rem;
+  padding: 3rem 0 3rem;
 
   .countDown {
     width: 100%;
@@ -88,6 +106,37 @@ export const CountDownContainer = styled.div`
     font-size: 16rem;
 
     position: relative;
+
+    @media (max-width: 530px) {
+      flex-direction: column;
+      align-items: center;
+
+      font-size: 13rem;
+    }
+
+    .minutes {
+      height: fit-content;
+
+      display: flex;
+      gap: 1.6rem;
+
+      @media (max-width: 530px) {
+        align-self: flex-start;
+        gap: 5.6rem;
+      }
+    }
+
+    .seconds {
+      height: fit-content;
+
+      display: flex;
+      gap: 1.6rem;
+
+      @media (max-width: 530px) {
+        align-self: flex-end;
+        gap: 5.6rem;
+      }
+    }
 
     .units {
       width: 12.8rem;
@@ -106,6 +155,8 @@ export const CountDownContainer = styled.div`
       flex: 1;
 
       display: flex;
+
+      margin: 0 1.6rem;
 
       &::before {
         content: '';
@@ -137,6 +188,12 @@ export const CountDownContainer = styled.div`
         height: 3rem;
 
         background-color: ${(props) => props.theme['green-500']};
+      }
+
+      @media (max-width: 530px) {
+        transform: rotate(90deg);
+        margin-top: 1.6rem;
+        margin-bottom: 1.6rem;
       }
     }
   }

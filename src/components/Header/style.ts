@@ -3,6 +3,13 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  flex: 1;
+
+  @media (max-width: 710px) {
+    flex: initial;
+  }
 
   img {
     width: 4rem;
@@ -18,7 +25,7 @@ export const HeaderContainer = styled.header`
 
     a {
       width: 4.8rem;
-      height: 100%;
+      height: 4.8rem;
 
       display: flex;
       justify-content: center;
