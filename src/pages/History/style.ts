@@ -56,7 +56,7 @@ export const TableContainer = styled.div`
 
   table {
     width: 100%;
-    /* min-width: 600px; */
+    min-width: 600px;
 
     border-collapse: collapse;
 
@@ -103,10 +103,6 @@ export const TableContainer = styled.div`
           font-size: 1.4rem;
 
           line-height: 1.6;
-
-          &:first-child {
-            /* width: 50%; */
-          }
         }
       }
     }

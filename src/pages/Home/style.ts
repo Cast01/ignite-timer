@@ -121,8 +121,11 @@ export const CountDownContainer = styled.div`
       gap: 1.6rem;
 
       @media (max-width: 530px) {
-        align-self: flex-start;
         gap: 5.6rem;
+      }
+
+      @media (max-width: 300px) {
+        gap: 1.6rem;
       }
     }
 
@@ -133,8 +136,11 @@ export const CountDownContainer = styled.div`
       gap: 1.6rem;
 
       @media (max-width: 530px) {
-        align-self: flex-end;
         gap: 5.6rem;
+      }
+
+      @media (max-width: 300px) {
+        gap: 1.6rem;
       }
     }
 
