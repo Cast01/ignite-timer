@@ -207,30 +207,41 @@ export const CountDownContainer = styled.div`
 
 export const FormFooter = styled.footer`
   height: 6.4rem;
+`;
 
-  button {
-    width: 100%;
-    height: 100%;
+export const BaseCountdownButton = styled.button`
+  width: 100%;
+  height: 100%;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
 
-    font-size: 1.6rem;
-    font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: ${(props) => props.theme['gray-100']};
+`;
 
-    background-color: ${(props) => props.theme['green-500']};
+export const StartCountdownButton = styled(BaseCountdownButton)`
+  background-color: ${(props) => props.theme['green-500']};
 
-    &:not(:disabled):hover {
-      background-color: ${(props) => props.theme['green-700']};
-    }
+  &:not(:disabled):hover {
+    background-color: ${(props) => props.theme['green-700']};
+  }
 
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+`;
+
+export const StopCountdownButton = styled(BaseCountdownButton)`
+  background-color: ${(props) => props.theme['red-500']};
+
+  &:hover {
+    background-color: ${(props) => props.theme['red-700']};
   }
 `;
