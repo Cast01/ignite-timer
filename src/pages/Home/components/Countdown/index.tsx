@@ -1,13 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { CountDownContainer } from './style';
 import { CycleContext } from '../..';
 import { differenceInSeconds } from 'date-fns';
 
 export function Countdown() {
-  const { activeCycle, setActiveCycleId, markCurrentCycleAsFinished } =
-    useContext(CycleContext);
-
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
+  const {
+    activeCycle,
+    amountSecondsPassed,
+    setActiveCycleId,
+    markCurrentCycleAsFinished,
+    setSecondsPassed,
+  } = useContext(CycleContext);
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmmount * 60 : 0;
 
@@ -27,23 +30,30 @@ export function Countdown() {
         );
         if (secondsDiference >= totalSeconds) {
           markCurrentCycleAsFinished();
-          setAmountSecondsPassed(totalSeconds);
+          setSecondsPassed(totalSeconds);
           setActiveCycleId(null);
           clearInterval(interval);
         } else {
-          setAmountSecondsPassed(secondsDiference);
+          setSecondsPassed(secondsDiference);
         }
       }, 1000);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle, totalSeconds, setActiveCycleId, markCurrentCycleAsFinished]);
+  }, [
+    activeCycle,
+    totalSeconds,
+    setActiveCycleId,
+    markCurrentCycleAsFinished,
+    setSecondsPassed,
+  ]);
 
   useEffect(() => {
     if (activeCycle) {
       document.title = `${minutes} : ${seconds}`;
     }
+    document.title = 'Pomodoro Online';
   }, [activeCycle, minutes, seconds]);
 
   return (
