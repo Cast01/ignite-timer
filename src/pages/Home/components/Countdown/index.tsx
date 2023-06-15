@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { CountDownContainer } from './style';
-import { CycleContext } from '../..';
 import { differenceInSeconds } from 'date-fns';
+import { CycleContext } from '../../../../contexts/CycleListContext';
 
 export function Countdown() {
   const {
@@ -52,8 +52,9 @@ export function Countdown() {
   useEffect(() => {
     if (activeCycle) {
       document.title = `${minutes} : ${seconds}`;
+    } else {
+      document.title = 'Pomodoro Online';
     }
-    document.title = 'Pomodoro Online';
   }, [activeCycle, minutes, seconds]);
 
   return (
