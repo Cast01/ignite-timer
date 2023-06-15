@@ -40,9 +40,10 @@ export function Home() {
 
   function handleCreateNewTask(data: newCycleFormData) {
     createNewCycle(data);
+    reset();
   }
 
-  const { handleSubmit, watch } = newCycleForm;
+  const { handleSubmit, watch, reset } = newCycleForm;
 
   const task = watch('task');
   const isSubmitDisabled = !task;

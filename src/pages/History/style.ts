@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HistoryContainer = styled.main`
-  height: 50rem;
+  flex: 1;
 
   overflow: hidden;
 

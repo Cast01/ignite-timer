@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 
-export const LayoutContainer = styled.div`
+interface LayoutContainerPropType {
+  screenHeight: number;
+}
+
+export const LayoutContainer = styled.div<LayoutContainerPropType>`
   max-width: 112rem;
-  min-height: calc(100vh - 16rem);
+  min-height: calc(80rem - 16rem);
+  height: 100vh;
+  max-height: calc(
+    ${({ screenHeight }: LayoutContainerPropType) => `${screenHeight}px`} -
+      16rem
+  );
 
   margin: 0 auto;
 
@@ -16,7 +25,10 @@ export const LayoutContainer = styled.div`
   background-color: ${(props) => props.theme['gray-800']};
 
   @media (max-width: 1024px) {
-    min-height: 100vh;
+    min-height: 65rem;
+    height: 100vh;
+    max-height: ${({ screenHeight }: LayoutContainerPropType) =>
+      `${screenHeight}px`};
 
     border-radius: 0;
   }

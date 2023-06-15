@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TableContainer = styled.div`
+  background-color: rgba(255, 255, 255, 0.1);
   flex: 1;
 
   overflow: auto;
@@ -15,21 +16,6 @@ export const TableContainer = styled.div`
     height: 5px;
 
     position: relative;
-
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      right: 0;
-
-      /* background-color: ${(props) => props.theme['gray-800']}; */
-      background-color: blue;
-
-      width: 16rem;
-      height: 16rem;
-
-      z-index: 99;
-    }
   }
 
   &::-webkit-scrollbar-thumb {
