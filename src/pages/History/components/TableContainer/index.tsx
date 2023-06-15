@@ -24,7 +24,11 @@ export default function TableContainerComponent() {
                 <td>{cycle.minutesAmmount} minutos</td>
                 <td>Há cerca de 2 meses</td>
                 <td>
-                  <Status statusColor="green">Concluído</Status>
+                  <Status statusColor="green">
+                    {cycle.finishedDate === 'finished' && 'concluído'}
+                    {cycle.finishedDate === 'canceled' && 'cancelada'}
+                    {cycle.finishedDate === 'pending' && 'em andamento'}
+                  </Status>
                 </td>
               </tr>
             );
