@@ -45,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     :focus {
-        box-shadow: 0 0 0 2px ${(props) => props.theme['green-500']};
+        border: 3px solid ${(props) => props.theme['green-500']};
     }
 
     @media (max-width: 710px) {

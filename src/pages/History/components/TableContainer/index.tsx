@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { Status, TableContainer } from './style';
 import { CycleContext } from '../../../../contexts/CycleListContext';
+import { formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 export default function TableContainerComponent() {
   const { cycles } = useContext(CycleContext);
@@ -22,11 +24,24 @@ export default function TableContainerComponent() {
               <tr key={cycle.id}>
                 <td>{cycle.task}</td>
                 <td>{cycle.minutesAmmount} minutos</td>
-                <td>Há cerca de 2 meses</td>
                 <td>
-                  <Status statusColor="green">
+                  {formatDistanceToNow(cycle.startDate, {
+                    addSuffix: true,
+                    locale: ptBR,
+                  })}
+                </td>
+                <td>
+                  <Status
+                    statusColor={
+                      cycle.finishedDate === 'finished'
+                        ? 'green'
+                        : cycle.finishedDate === 'canceled'
+                        ? 'red'
+                        : 'yellow'
+                    }
+                  >
                     {cycle.finishedDate === 'finished' && 'concluído'}
-                    {cycle.finishedDate === 'canceled' && 'cancelada'}
+                    {cycle.finishedDate === 'canceled' && 'interrompida'}
                     {cycle.finishedDate === 'pending' && 'em andamento'}
                   </Status>
                 </td>
