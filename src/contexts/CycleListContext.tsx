@@ -1,10 +1,9 @@
 import { differenceInSeconds } from 'date-fns';
 import {
   createContext,
-  Dispatch,
   ReactNode,
-  SetStateAction,
   useEffect,
+  useReducer,
   useState,
 } from 'react';
 
@@ -25,6 +24,11 @@ export interface Cycle {
   finishedDate: 'finished' | 'canceled' | 'pending';
 }
 
+interface CycleStateType {
+  cycles: Cycle[];
+  activeCycleId: string | null;
+}
+
 interface CycleContextType {
   cycles: Cycle[];
   activeCycle: Cycle | undefined;
@@ -33,10 +37,6 @@ interface CycleContextType {
   totalSeconds: number;
   minutes: string;
   seconds: string;
-  setCycles: Dispatch<SetStateAction<Cycle[]>>;
-  setActiveCycleId: Dispatch<SetStateAction<string | null>>;
-  //   setSecondsPassed: (seconds: number) => void;
-  //   markCurrentCycleAsFinished: () => void;
   createNewCycle: (data: CreateCycleDataType) => void;
   handleInteruptCycle: () => void;
 }
@@ -46,27 +46,60 @@ export const CycleContext = createContext({} as CycleContextType);
 export function CycleContextProvider({
   children,
 }: CycleContextProvidePropType) {
-  const [cycles, setCycles] = useState<Cycle[]>([]);
-  const [activeCycleId, setActiveCycleId] = useState<string | null>(null);
+  const [cyclesState, dispatch] = useReducer(
+    (state: CycleStateType, action: any) => {
+      switch (action.type) {
+        case 'ADD_NEW_CYCLE':
+          return {
+            ...state,
+            cycles: [...state.cycles, action.payload.newCycle],
+            activeCycleId: action.payload.newCycle.id,
+          };
+
+        case 'INTERRUPT_CURRENT_CYCLE':
+          return {
+            ...state,
+            cycles: state.cycles.map((cycle) => {
+              if (cycle.id === state.activeCycleId) {
+                return {
+                  ...cycle,
+                  finishedDate: 'canceled',
+                };
+              }
+              return state;
+            }),
+            activeCycleId: null,
+          };
+
+        case 'FINISHED_CYCLE':
+          return {
+            ...state,
+            cycles: state.cycles.map((cycle) => {
+              if (cycle.id === state.activeCycleId) {
+                return {
+                  ...cycle,
+                  finishedDate: 'finished',
+                };
+              }
+              return state;
+            }),
+            activeCycleId: null,
+          };
+
+        default:
+          return state;
+      }
+    },
+    {
+      cycles: [],
+      activeCycleId: null,
+    },
+  );
+  const { activeCycleId, cycles } = cyclesState;
+
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
 
   console.log(cycles);
-
-  //   function setSecondsPassed(seconds: number) {
-  //     setAmountSecondsPassed(seconds);
-  //   }
-
-  //   function markCurrentCycleAsFinished() {
-  //     setCycles((oldCycles) =>
-  //       oldCycles.map((cycle) => {
-  //         if (cycle.id === activeCycleId) {
-  //           return { ...cycle, finishedDate: 'finished' };
-  //         } else {
-  //           return cycle;
-  //         }
-  //       }),
-  //     );
-  //   }
 
   function createNewCycle(data: CreateCycleDataType) {
     const id = String(new Date().getTime());
@@ -77,22 +110,32 @@ export function CycleContextProvider({
       startDate: new Date(),
       finishedDate: 'pending',
     };
-    setCycles((oldCycles) => [...oldCycles, newCycle]);
-    setActiveCycleId(id);
+    // setCycles((oldCycles) => [...oldCycles, newCycle]);
+    dispatch({
+      type: 'ADD_NEW_CYCLE',
+      payload: {
+        newCycle,
+      },
+    });
     setAmountSecondsPassed(0);
   }
 
   function handleInteruptCycle() {
-    setCycles((oldCycles) =>
-      oldCycles.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          return { ...cycle, finishedDate: 'canceled' };
-        } else {
-          return cycle;
-        }
-      }),
-    );
-    setActiveCycleId(null);
+    // setCycles((oldCycles) =>
+    //   oldCycles.map((cycle) => {
+    //     if (cycle.id === activeCycleId) {
+    //       return { ...cycle, finishedDate: 'canceled' };
+    //     } else {
+    //       return cycle;
+    //     }
+    //   }),
+    // );
+    dispatch({
+      type: 'INTERRUPT_CURRENT_CYCLE',
+      payload: {
+        activeCycleId,
+      },
+    });
   }
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
@@ -113,17 +156,22 @@ export function CycleContextProvider({
           activeCycle.startDate,
         );
         if (secondsDiference >= totalSeconds) {
-          setCycles((oldCycles) =>
-            oldCycles.map((cycle) => {
-              if (cycle.id === activeCycleId) {
-                return { ...cycle, finishedDate: 'finished' };
-              } else {
-                return cycle;
-              }
-            }),
-          );
+          //   setCycles((oldCycles) =>
+          //     oldCycles.map((cycle) => {
+          //       if (cycle.id === activeCycleId) {
+          //         return { ...cycle, finishedDate: 'finished' };
+          //       } else {
+          //         return cycle;
+          //       }
+          //     }),
+          //   );
+          dispatch({
+            type: 'FINISHED_CYCLE',
+            payload: {
+              activeCycleId,
+            },
+          });
           setAmountSecondsPassed(totalSeconds);
-          setActiveCycleId(null);
           clearInterval(interval);
         } else {
           setAmountSecondsPassed(secondsDiference);
@@ -133,7 +181,7 @@ export function CycleContextProvider({
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle, totalSeconds, setActiveCycleId, activeCycleId]);
+  }, [activeCycle, totalSeconds, activeCycleId]);
 
   useEffect(() => {
     if (activeCycle) {
@@ -151,10 +199,6 @@ export function CycleContextProvider({
     totalSeconds,
     minutes,
     seconds,
-    setCycles,
-    setActiveCycleId,
-    // setSecondsPassed,
-    // markCurrentCycleAsFinished,
     createNewCycle,
     handleInteruptCycle,
   };
