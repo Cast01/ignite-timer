@@ -6,7 +6,8 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { ActionType, Cycle, cyclesReducer } from '../reducers/cycles';
+import { Cycle, cyclesReducer } from '../reducers/cycles/reducer';
+import { addNewCycleAction, finishedCycleAction, interruptCurrentCycleAction } from '../reducers/cycles/actions';
 
 interface CycleContextProvidePropType {
   children: ReactNode;
@@ -53,22 +54,12 @@ export function CycleContextProvider({
       startDate: new Date(),
       finishedDate: 'pending',
     };
-    dispatch({
-      type: ActionType.ADD_NEW_CYCLE,
-      payload: {
-        newCycle,
-      },
-    });
+    dispatch(addNewCycleAction(newCycle));
     setAmountSecondsPassed(0);
   }
 
   function handleInteruptCycle() {
-    dispatch({
-      type: ActionType.INTERRUPT_CURRENT_CYCLE,
-      payload: {
-        activeCycleId,
-      },
-    });
+    dispatch(interruptCurrentCycleAction());
   }
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
@@ -89,12 +80,7 @@ export function CycleContextProvider({
           activeCycle.startDate,
         );
         if (secondsDiference >= totalSeconds) {
-          dispatch({
-            type: ActionType.FINISHED_CYCLE,
-            payload: {
-              activeCycleId,
-            },
-          });
+          dispatch(finishedCycleAction());
           setAmountSecondsPassed(totalSeconds);
           clearInterval(interval);
         } else {
