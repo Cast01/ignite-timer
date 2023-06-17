@@ -1,6 +1,6 @@
 # NLW Copa
 
-<img src="./src/assets/nlw-copa.png" alt="#" />
+<img src="./src/assets/ignite-timer.png" alt="#" />
 
 ---
 
