@@ -25,7 +25,7 @@ export default function TableContainerComponent() {
                 <td>{cycle.task}</td>
                 <td>{cycle.minutesAmmount} minutos</td>
                 <td>
-                  {formatDistanceToNow(cycle.startDate, {
+                  {formatDistanceToNow(new Date(cycle.startDate), {
                     addSuffix: true,
                     locale: ptBR,
                   })}
@@ -48,94 +48,6 @@ export default function TableContainerComponent() {
               </tr>
             );
           })}
-          {/* <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr>
-          <tr>
-            <td>teste</td>
-            <td>minutos</td>
-            <td>Há cerca de 2 meses</td>
-            <td>
-              <Status statusColor="green">Concluído</Status>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </TableContainer>

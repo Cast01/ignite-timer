@@ -1,4 +1,3 @@
-import { differenceInSeconds } from 'date-fns';
 import {
   createContext,
   ReactNode,
@@ -8,6 +7,7 @@ import {
 } from 'react';
 import { Cycle, cyclesReducer } from '../reducers/cycles/reducer';
 import { addNewCycleAction, finishedCycleAction, interruptCurrentCycleAction } from '../reducers/cycles/actions';
+import { differenceInSeconds } from 'date-fns';
 
 interface CycleContextProvidePropType {
   children: ReactNode;
@@ -23,9 +23,8 @@ interface CycleContextType {
   activeCycle: Cycle | undefined;
   activeCycleId: string | null;
   amountSecondsPassed: number;
-  totalSeconds: number;
-  minutes: string;
-  seconds: string;
+  markCycleAsFinished: () => void;
+  updateAmountSecondsPassed: (seconds: number) => void;
   createNewCycle: (data: CreateCycleDataType) => void;
   handleInteruptCycle: () => void;
 }
@@ -38,12 +37,27 @@ export function CycleContextProvider({
   const [cyclesState, dispatch] = useReducer(cyclesReducer, {
     cycles: [],
     activeCycleId: null,
+  }, (initialState) => {
+    const storedStateAsJSON = localStorage.getItem('@IgniteTimer_cycle-list_1.0.0')
+
+    if ( storedStateAsJSON ) return JSON.parse(storedStateAsJSON)
+
+    return initialState
   });
   const { activeCycleId, cycles } = cyclesState;
 
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
-  console.log(cycles);
+  const [amountSecondsPassed, setAmountSecondsPassed] = useState(() => {
+    if (activeCycle) {
+      return differenceInSeconds(
+        new Date(),
+        new Date(activeCycle.startDate),
+      )
+    }
+    
+    return 0
+  });
 
   function createNewCycle(data: CreateCycleDataType) {
     const id = String(new Date().getTime());
@@ -54,6 +68,7 @@ export function CycleContextProvider({
       startDate: new Date(),
       finishedDate: 'pending',
     };
+
     dispatch(addNewCycleAction(newCycle));
     setAmountSecondsPassed(0);
   }
@@ -62,53 +77,26 @@ export function CycleContextProvider({
     dispatch(interruptCurrentCycleAction());
   }
 
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
+  function updateAmountSecondsPassed(seconds: number) {
+    setAmountSecondsPassed(seconds)
+  }
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmmount * 60 : 0;
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
-  const minutesAmount = Math.floor(currentSeconds / 60);
-  const secondsAmount = currentSeconds % 60;
-  const minutes = String(minutesAmount).padStart(2, '0');
-  const seconds = String(secondsAmount).padStart(2, '0');
-
-  useEffect(() => {
-    let interval: number;
-    if (activeCycle) {
-      interval = setInterval(() => {
-        const secondsDiference = differenceInSeconds(
-          new Date(),
-          activeCycle.startDate,
-        );
-        if (secondsDiference >= totalSeconds) {
-          dispatch(finishedCycleAction());
-          setAmountSecondsPassed(totalSeconds);
-          clearInterval(interval);
-        } else {
-          setAmountSecondsPassed(secondsDiference);
-        }
-      }, 1000);
-    }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [activeCycle, totalSeconds, activeCycleId]);
+  function markCycleAsFinished() {
+    dispatch(finishedCycleAction())
+  }
 
   useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes} : ${seconds}`;
-    } else {
-      document.title = 'Pomodoro Online';
-    }
-  }, [activeCycle, minutes, seconds]);
+    const cyclesStateSTRINGFY = JSON.stringify(cyclesState)
+    localStorage.setItem('@IgniteTimer_cycle-list_1.0.0', cyclesStateSTRINGFY)
+  }, [cyclesState]);
 
   const valueObj = {
     cycles,
     activeCycle,
     activeCycleId,
     amountSecondsPassed,
-    totalSeconds,
-    minutes,
-    seconds,
+    markCycleAsFinished,
+    updateAmountSecondsPassed,
     createNewCycle,
     handleInteruptCycle,
   };

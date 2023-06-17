@@ -58,12 +58,12 @@ export function Home() {
         <FormFooter>
           {activeCycle ? (
             <StopCountdownButton type="button" onClick={handleInteruptCycle}>
-              <HandPalm size={'2.4rem'} />
+              <HandPalm size={24} />
               <span>PARAR</span>
             </StopCountdownButton>
           ) : (
             <StartCountdownButton disabled={isSubmitDisabled} type="submit">
-              <Play size={'2.4rem'} />
+              <Play size={24} />
               <span>COMEÇAR</span>
             </StartCountdownButton>
           )}

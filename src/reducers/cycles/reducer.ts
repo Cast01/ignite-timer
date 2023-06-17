@@ -1,3 +1,5 @@
+import { produce } from "immer";
+
 import { ActionType } from "./actions";
 
 export interface Cycle {
@@ -16,41 +18,36 @@ interface CycleStateType {
 export function cyclesReducer(state: CycleStateType, action: any) {
   switch (action.type) {
     case ActionType.ADD_NEW_CYCLE:
-      return {
-        ...state,
-        cycles: [...state.cycles, action.payload.newCycle],
-        activeCycleId: action.payload.newCycle.id,
-      };
+      return produce(state, draft => {
+        draft.cycles.push(action.payload.newCycle)
+        draft.activeCycleId = action.payload.newCycle.id
+      })
 
-    case ActionType.FINISHED_CYCLE:
-      return {
-        ...state,
-        cycles: state.cycles.map((cycle) => {
-          if (cycle.id === state.activeCycleId) {
-            return {
-              ...cycle,
-              finishedDate: 'finished',
-            };
-          }
-          return state;
-        }),
-        activeCycleId: null,
-      };
+    case ActionType.FINISHED_CYCLE: {
+      const currentCycleIndex = state.cycles.findIndex(cycle => cycle.id === state.activeCycleId)
 
-    case ActionType.INTERRUPT_CURRENT_CYCLE:
-      return {
-        ...state,
-        cycles: state.cycles.map((cycle) => {
-          if (cycle.id === state.activeCycleId) {
-            return {
-              ...cycle,
-              finishedDate: 'canceled',
-            };
-          }
-          return state;
-        }),
-        activeCycleId: null,
-      };
+      if (currentCycleIndex < 0) {
+        return state
+      }
+
+      return produce(state, draft => {
+        draft.cycles[currentCycleIndex].finishedDate = 'finished'
+        draft.activeCycleId = null
+      })
+    }
+
+    case ActionType.INTERRUPT_CURRENT_CYCLE: {
+      const currentCycleIndex = state.cycles.findIndex(cycle => cycle.id === state.activeCycleId)
+
+      if (currentCycleIndex < 0) {
+        return state
+      }
+
+      return produce(state, draft => {
+        draft.cycles[currentCycleIndex].finishedDate = 'canceled'
+        draft.activeCycleId = null
+      })
+    }
 
     default:
       return state;
